@@ -1,0 +1,10 @@
+spring:
+  jackson:
+    default-property-inclusion: non-null
+    time-zone: GMT+8
+  profiles:
+    active:
+    - druid
+    - dev
+logging:
+  config: classpath:log4j2-sit.xml
