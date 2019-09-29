@@ -2,7 +2,7 @@ spring:
   datasource:
 #   数据源基本配置
     username: root
-    password: aaaa
+    password: raaa
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.1.1:3306/test?autoReconnect=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource

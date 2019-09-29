@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rewa.test.entity.User;
-import com.rewa.test.enums.ResultCode;
-import com.rewa.test.exception.BusinessException;
 import com.rewa.test.mapper.TestMapper;
 
 @Service
@@ -19,13 +17,13 @@ public class TestService extends ServiceImpl<TestMapper, User>{
 	}
 
 	public User getUser() {
-		User selectById = testMapper.selectById("1176795159736123394");
-		try {
-			System.out.println(1/0);
-		}catch (Exception e) {
+		User selectById = testMapper.selectById("1176801890755252226");
+//		try {
+//			System.out.println(1/0);
+//		}catch (Exception e) {
 //			throw new BusinessException(ResultCode.TEST,e);
-			throw new BusinessException(ResultCode.TEST,e,3);
-		}
+//			throw new BusinessException(ResultCode.TEST,e,3);
+//		}
 		return selectById;
 	}
 }

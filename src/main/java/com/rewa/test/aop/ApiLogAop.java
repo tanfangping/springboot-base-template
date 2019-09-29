@@ -20,22 +20,24 @@ public class ApiLogAop {
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     /**
      * 定义一个切入点.
-     * 解释下：
+     * 解释下:
      *
      */
      @Pointcut("execution(* com.rewa.test.controller.*.*(..))")
      public void webLog(){}
      
      @Around("webLog()")
-     public void around(ProceedingJoinPoint joinPoint) throws Throwable{
+     public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
+    	Object result = null;
     	long startTime = System.currentTimeMillis();
 		try {
-			joinPoint.proceed();
+			result = joinPoint.proceed();
 		} catch (Throwable e) {
 			logInfo(joinPoint,startTime,false);
 			throw e;
 		}
 		logInfo(joinPoint,startTime,true);
+		return result;
      }
      
      public void logInfo (ProceedingJoinPoint joinPoint,long startTime,boolean status) {
@@ -43,8 +45,8 @@ public class ApiLogAop {
     	HttpServletRequest request = RequestContextUtil.getRequest();
     	String requestMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
     	StringBuffer sb = new StringBuffer("");
-    	sb.append("api接口访问日志  ").
-    	append("请求id：").append(RequestContextUtil.getRequestId()).
+    	sb.append("api接口访问日志-----").
+    	append("请求id:").append(RequestContextUtil.getRequestId()).append(",").
     	append("执行方法:").append(requestMethod).append(",").
     	append("执行状态:").append(status == true?"成功":"失败").append(",").
     	append("执行时间:").append(dtf.format(LocalDateTime.now())).append(",").
@@ -54,5 +56,4 @@ public class ApiLogAop {
     	append("ARGS:").append(Arrays.toString(joinPoint.getArgs()));
     	log.info(sb.toString());
      }
-     
 }
