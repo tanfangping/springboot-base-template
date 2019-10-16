@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import com.rewa.test.msg.response.UnitiveResponse;
 import com.rewa.test.util.DBConstants;
+import com.rewa.test.util.JsonUtil;
 import com.rewa.test.util.RequestContextUtil;
 
 @ControllerAdvice
@@ -28,6 +29,8 @@ public class ResponseResultHandle implements ResponseBodyAdvice<Object>{
 			ServerHttpResponse response) {
 		if (body instanceof UnitiveResponse) {
 			return body;
+		} else if (body instanceof String) {
+			return JsonUtil.object2Json(UnitiveResponse.success(body));
 		} else {
 			return UnitiveResponse.success(body);
 		} 
